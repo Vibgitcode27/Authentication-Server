@@ -45,20 +45,18 @@ postLogin = async (req ,res) =>
     if(check == null)
     {
         res.status(404).send("Credentials are wrong")
-        
     }
     else
     {
         try {
-            if (condition) {
-                bcrypt.compare(req.body.password , check.password)
+            if (await bcrypt.compare(req.body.password , check.password)) {
                 res.status(200).send("You are logged in.")
             } else {
                 res.status(404).send("Login Failed check credentials")
             }
         } 
         catch {
-            res.satus(501)
+            res.status(501)
         }
     }
 }
